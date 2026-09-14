@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "wordpress-programming-life": {
+      "command": "npx",
+      "args": ["-y", "mcp-wordpress"],
+      "env": {
+        "WORDPRESS_SITE_URL": "https://programming-life.net",
+        "WORDPRESS_USERNAME": "<run setup.sh to fill>",
+        "WORDPRESS_APP_PASSWORD": "<run setup.sh to fill>",
+        "WORDPRESS_AUTH_METHOD": "app-password"
+      }
+    }
+  }
+}

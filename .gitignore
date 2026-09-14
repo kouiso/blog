@@ -1,0 +1,20 @@
+# Secrets — never commit
+.mcp.json
+.env
+.env.local
+*.secret
+service-account*.json
+
+# Node / scripts
+node_modules/
+script/node_modules/
+
+# Playwright / evidence
+.playwright-mcp/
+test-results/
+playwright-report/
+
+# OS / editor
+.DS_Store
+.dbg/
+tmp/
