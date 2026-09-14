@@ -1,0 +1,15 @@
+# backlog.yaml — 記事候補キュー
+# blog-topic-research が GSC の実績（表示回数×CTR・順位8〜20位）から自動補充し、
+# blog-weekly-article Routine が先頭から消費する。
+#
+# 項目スキーマ:
+#   - slug: typescript-xxx / programming-xxx 規則の候補 slug
+#     title: 記事タイトル案
+#     category: typescript | programming
+#     intent: 検索意図の一言（「〜の意味を知りたい」等）
+#     source: gsc | manual | rewrite
+#     gsc: { impressions: 0, ctr: 0.0, position: 0.0 }   # source=gsc の時だけ
+#     notes: カニバリ回避・内部リンク候補など補足
+#     added: YYYY-MM-DD
+#     status: queued | drafting | done | dropped
+keywords: []

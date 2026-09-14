@@ -1,0 +1,81 @@
+<!--
+  article.html — programming-life.net 記事本文テンプレート（WordPress ブロック形式）
+  実記事 programming-learn の raw content から抽出した正確なマークアップ。
+  {{PLACEHOLDER}} を置き換えて使う。目次・関連記事・CTA はテーマが自動挿入するため含めない。
+-->
+
+<!-- wp:paragraph -->
+<p>{{INTRO_PARAGRAPH_1}}</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>{{INTRO_PARAGRAPH_2}}</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">{{H2_TITLE}}</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>{{H2_INTRO_PARAGRAPH}}</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:loos/cap-block {"iconName":"LsPen","className":"is-style-onborder_ttl2"} -->
+<div class="swell-block-capbox cap_box is-style-onborder_ttl2"><div class="cap_box_ttl" data-has-icon="1"><svg height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 48 48"><path d="M43 46H21c-1.1 0-2-.9-2-2s.9-2 2-2h22c1.1 0 2 .9 2 2s-.9 2-2 2zM28.6 10.6l2.5-4.3c.3-.5.1-1.1-.4-1.4l-5.2-3c-.5-.3-1.1-.1-1.4.4l-2.5 4.3 7 4zM20.2 9.2 3.3 38.5c-.4.7-.6 1.5-.5 2.3l.3 4.5c0 .7.8 1.1 1.4.8l4-2c.7-.4 1.3-.9 1.7-1.6l16.9-29.3-6.9-4z"></path></svg><span>{{H2_TITLE}}</span></div><div class="cap_box_content"><!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li>{{H3_TOPIC_1}}</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>{{H3_TOPIC_2}}</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list --></div></div>
+<!-- /wp:loos/cap-block -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">{{H3_TITLE}}</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>{{PARAGRAPH}}</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>{{PARAGRAPH}}</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:loos-hcb/code-block {"langType":"ts","langName":"TypeScript"} -->
+<div class="hcb_wrap"><pre class="prism undefined-numbers lang-ts" data-lang="TypeScript"><code>{{CODE_ESCAPED}}</code></pre></div>
+<!-- /wp:loos-hcb/code-block -->
+
+<!-- ▼ まとめ（H2 + check_list capbox） -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">まとめ</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>分かりやすいようにまとめを記載します。</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:loos/cap-block {"iconName":"LsPen","className":"is-style-onborder_ttl2"} -->
+<div class="swell-block-capbox cap_box is-style-onborder_ttl2"><div class="cap_box_ttl" data-has-icon="1"><svg height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 48 48"><path d="M43 46H21c-1.1 0-2-.9-2-2s.9-2 2-2h22c1.1 0 2 .9 2 2s-.9 2-2 2zM28.6 10.6l2.5-4.3c.3-.5.1-1.1-.4-1.4l-5.2-3c-.5-.3-1.1-.1-1.4.4l-2.5 4.3 7 4zM20.2 9.2 3.3 38.5c-.4.7-.6 1.5-.5 2.3l.3 4.5c0 .7.8 1.1 1.4.8l4-2c.7-.4 1.3-.9 1.7-1.6l16.9-29.3-6.9-4z"></path></svg><span>本記事のまとめ</span></div><div class="cap_box_content"><!-- wp:list {"className":"is-style-check_list -list-under-dashed"} -->
+<ul class="wp-block-list is-style-check_list -list-under-dashed"><!-- wp:list-item -->
+<li><strong>{{SUMMARY_HEAD}}</strong><br>{{SUMMARY_BODY}}</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list --></div></div>
+<!-- /wp:loos/cap-block -->
+
+<!-- ▼ よくある質問（FAQ。accordion） -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">よくある質問（FAQ）</h3>
+<!-- /wp:heading -->
+
+<!-- wp:loos/accordion {"className":"is-style-main"} -->
+<div class="swell-block-accordion is-style-main"><!-- wp:loos/accordion-item -->
+<details class="swell-block-accordion__item" data-swl-acc="wrapper"><summary class="swell-block-accordion__title" data-swl-acc="header"><span class="swell-block-accordion__label">{{FAQ_QUESTION}}</span><span class="swell-block-accordion__icon c-switchIconBtn" data-swl-acc="icon" aria-hidden="true" data-opened="false"><i class="__icon--closed icon-caret-down"></i><i class="__icon--opened icon-caret-up"></i></span></summary><div class="swell-block-accordion__body" data-swl-acc="body"><!-- wp:paragraph -->
+<p>{{FAQ_ANSWER}}</p>
+<!-- /wp:paragraph --></div></details>
+<!-- /wp:loos/accordion-item --></div>
+<!-- /wp:loos/accordion -->
