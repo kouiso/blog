@@ -12,7 +12,7 @@
 #   vault `RITMO` (gq4pz3xxmoryoteuhvamcktmaq):
 #     - `programming-life.net MCP App Password` (z6aqtnrri66rktwhpoaamubjjy) … REST API 用
 #     - `Microsoft Clarity APIキー` (xufjwbxd6bbexcjgvw5mfhlysy)              … Data Export API
-#     - `programming-life.net GA Service Account` … GA4/GSC 用 JSON キー（未作成。doc/credential.md）
+#     - `programming-life.net GA Service Account` … GA4/GSC 用 JSON キー（`credential` フィールド）
 set -euo pipefail
 
 PRIVATE_VAULT="vuhhrti25x7eq7g46mwtq7qome"
@@ -74,8 +74,16 @@ echo "[setup] Writing $ENV_FILE ..."
 MISSING=()
 
 echo "[setup] Fetching analytics credentials (vault: RITMO)..."
+# --fields 出力は値が引用符を含むとCSVエスケープされるため --format json から取り出す
 if op item get "$GA_SA_ITEM_NAME" --vault "$RITMO_VAULT" \
-    --fields credential --reveal </dev/null > "$SA_JSON" 2>/dev/null && [ -s "$SA_JSON" ]; then
+    --reveal --format json </dev/null 2>/dev/null | node -e '
+      let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{
+        const d=JSON.parse(s);
+        const f=(d.fields||[]).find(f=>f.label==="credential"||f.id==="credential");
+        if(!f||!f.value)process.exit(1);
+        JSON.parse(f.value); // SA JSON として妥当か検証
+        process.stdout.write(f.value);
+      });' > "$SA_JSON" && [ -s "$SA_JSON" ]; then
   echo "GOOGLE_SERVICE_ACCOUNT_JSON=$PWD/$SA_JSON" >> "$ENV_FILE"
 else
   rm -f "$SA_JSON"
