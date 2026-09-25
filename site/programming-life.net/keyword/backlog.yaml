@@ -12,4 +12,61 @@
 #     notes: カニバリ回避・内部リンク候補など補足
 #     added: YYYY-MM-DD
 #     status: queued | drafting | done | dropped
-keywords: []
+keywords:
+  - slug: typescript-tutorial
+    title: TypeScriptチュートリアル（既存記事リライト）
+    category: typescript
+    intent: TypeScriptの学び方を体系的に知りたい
+    source: rewrite
+    notes: "typescript tutorial で175imp/pos9.6/CTR0%。typescript チュートリアル でも37imp/pos7.5。top10圏内なのにクリック0 — タイトル・meta description・冒頭の訴求を全面改善。typescript-tutorial をリライト"
+    added: 2026-09-25
+    status: queued
+  - slug: typescript-playground
+    title: TypeScript Playgroundの使い方（既存記事リライト）
+    category: typescript
+    intent: ブラウザ上でTypeScriptを試す方法を知りたい
+    source: rewrite
+    notes: "ts playground 81imp/pos7.0 + typescript playground 70imp/pos9.7 = 計151imp/CTR0%。how-to-use-typescript-playground をリライト。スクリーンショット中心のハンズオン構成が向いてる"
+    added: 2026-09-25
+    status: queued
+  - slug: programming-brain-and-logic
+    title: プログラミングのロジックとは（既存記事リライト）
+    category: programming
+    intent: ロジックの意味・組み方を知りたい
+    source: rewrite
+    notes: "ロジックとはプログラミング 65imp/pos8.2 + プログラミング ロジック 40imp/pos13.8 + ロジックを組む 64imp/pos6.6 + ロジックとは it/わかりやすく/簡単に など計200imp超、CTR0%。programming-brain-and-logic をリライト。アンカー(#in)への流入が多い→見出し構成の見直しも"
+    added: 2026-09-25
+    status: queued
+  - slug: programming-there-is-nothing-to-make
+    title: 作りたいものがない・目的がない人のプログラミング学習（既存記事リライト）
+    category: programming
+    intent: 目的なく学習を進める方法を知りたい
+    source: rewrite
+    notes: "プログラミング 目的がない 42imp/pos13.5 + 作りたいものがない 30imp/pos33.2 + 個人開発 作りたいものがない 16imp/pos8.8(ctr6.2%)。programming-there-is-nothing-to-make をリライト。個人開発文脈のセクション追加で拾い切る"
+    added: 2026-09-25
+    status: queued
+  - slug: typescript-react-javascript-difference
+    title: ReactとJavaScriptの違いは？TypeScriptとの関係も解説
+    category: typescript
+    intent: ReactとJavaScript/TypeScriptの違いを知りたい
+    source: gsc
+    gsc: { impressions: 13, ctr: 0.0, position: 37.6 }
+    notes: "react javascript 違い が difference-between-typescript-and-javascript に流入（意図とズレ）。専用記事がないので新規。typescript-and-react-function-component とカニバリ注意・内部リンクで補完。13impと小さいが対応記事ゼロの穴"
+    added: 2026-09-25
+    status: queued
+  - slug: programming-not-suitable
+    title: プログラミングに向いてない人の特徴と対処法（既存記事リライト）
+    category: programming
+    intent: 自分が向いているか知りたい
+    source: rewrite
+    notes: "プログラミング 向いてない 63imp/pos58.3。programming-not-suitable が深すぎる順位 — タイトル・導入・構成の抜本見直し。難しい系クエリ(プログラミング 難しい 30imp/pos54.7→programming-too-hard)と併せてリライト検討"
+    added: 2026-09-25
+    status: queued
+  - slug: typescript-recommendation-books
+    title: TypeScriptおすすめ本・参考書（既存記事リライト）
+    category: typescript
+    intent: TypeScriptの本・書籍を探したい
+    source: rewrite
+    notes: "typescript 本 58imp/pos26.6/CTR0%。typescript-recommendation-books がpos26と埋もれてる。書籍紹介の新鮮さ・比較表・目次の見直しでtop10狙える位置"
+    added: 2026-09-25
+    status: queued
