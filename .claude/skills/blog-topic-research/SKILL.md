@@ -20,10 +20,11 @@ description: 次に書く記事のテーマを決める時に使う。Search Con
 3. **post-index.json と照合**:
    - 既存記事が同じクエリを狙っている → 新規記事ではなくリライト候補（`status: rewrite` 相当として notes に記録）
    - 既存記事とトピックが被る → カニバリになるので除外
-4. **`site/<domain>/keyword/backlog.yaml` の `keywords:` に追記**
+4. **（任意）候補の需要をキーワードツールで裏取り** — `script/google-suggest.mjs` でサジェスト展開、`script/keyword-planner.mjs` で月間ボリューム・競合を取得（要CDPログインChrome。doc/keyword-tools.md 参照）。ボリューム0件級の候補は notes に記録
+5. **`site/<domain>/keyword/backlog.yaml` の `keywords:` に追記**
    - slug は `typescript-xxx` / `programming-xxx` 規則（profile.md の命名規則に従う）
    - `source: gsc`、`gsc:` に実測値、`added` に今日の日付、`status: queued`
-5. 追記した候補の一覧を1行ずつ報告する
+6. 追記した候補の一覧を1行ずつ報告する
 
 ## 絶対禁止
 
