@@ -1,0 +1,12 @@
+{
+  "slug": "typescript-class",
+  "source": {
+    "id": 100,
+    "status": "publish",
+    "title": { "raw": "TypeScriptクラス（テスト用）" },
+    "content": { "raw": "<!-- wp:paragraph --><p>テスト用記事です。</p><!-- /wp:paragraph -->" },
+    "modified": "2026-01-01T00:00:00"
+  },
+  "md": "# TypeScriptクラス\nテスト用記事です。\n",
+  "postIndex": []
+}

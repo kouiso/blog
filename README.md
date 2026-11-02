@@ -36,7 +36,44 @@ kill-switch         このファイルが存在する間、公開系 Routine / s
 | blog-weekly-report | `0 0 * * 0` | 解析レポート生成・backlog 補充 |
 | blog-monthly-refresh | `0 0 1 * *` | 順位下落記事リライト・内部リンク更新 |
 
-## キルスイッチ
+## 解析スクリプトとローカル検証
+
+Node.js 22.16 以降を使用します。追加パッケージは不要です。
+
+```bash
+# 日次取り溜め（.env の CLARITY_API_TOKEN。未取得なら終了コード0でスキップ）
+node script/fetch-clarity.mjs programming-life.net
+# 週次集計（昨日まで7日間 vs その前7日間、UTC）
+node script/generate-report.mjs programming-life.net
+# 検出済みの既存記事を backlog へ重複なく追記する場合のみ
+node script/generate-report.mjs programming-life.net --update-backlog
+
+# 認証なし・通信なしの fixture 実行
+node script/fetch-clarity.mjs programming-life.net --fixture test/clarity.fixture.json --date 2026-01-04
+node script/generate-report.mjs programming-life.net --fixture test/analytics.fixture.json --end 2026-01-04
+node script/publish-dry-run.mjs programming-life.net --fixture test/publish-dry-run.fixture.json --date 2026-01-04
+node --test test/*.test.mjs
+```
+
+本番保存先は `site/<domain>/analytics/clarity/<YYYY-MM-DD>.json` と
+`site/<domain>/report/<ISO年-WW>.md` です。Clarity は直近1日の URL 別データを
+1回取得し、同日は上書きします（API は日10回まで）。週報には観測行の単純平均と
+URL別の観測値を出し、週次ユニーク数や重み付き平均にはしません。
+
+Google 認証は既存の `GOOGLE_ACCESS_TOKEN`（読み取り権限のある OAuth トークン）か
+既存鍵への `GOOGLE_SERVICE_ACCOUNT_JSON` パスを `.env` に設定します。
+`GA4_PROPERTY_ID`（数値）と `GSC_SITE_URL`（登録済みプロパティ名）も必要です。
+認証・設定が無い項目は「未取得」と表示し、実績値を捏造しません。
+SA・APIキーの発行や設定変更はこのスクリプトでは行いません。
+
+fixture は `analytics/clarity-fixture/` と `report/fixture/` に隔離し、
+本番週報や backlog に混ぜません（`--fixture --update-backlog` はエラー）。
+dry-run CLI は fixture 専用で、WordPress の認証・通信・公開操作を持ちません。
+実際の品質ゲートを実行し、模擬draftの削除・404・元記事の不変を確認します。
+同梱の短い記事はゲートFAILになる設計です。ゲート結果を記録して削除できれば検証は成功します。
+本番の複製・削除確認は #6 の外部検証として別途必要です。
+
+## キルスイッチの操作
 
 ```bash
 touch kill-switch   # 全公開系動作を停止

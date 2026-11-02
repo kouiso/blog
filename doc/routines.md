@@ -10,7 +10,7 @@
 2. 死活確認（curl トップページ + 認証付き REST）— 失敗したら blog-incident
 3. blog-comment-moderation（保留コメント承認/spam）
 4. wp-admin のプラグイン/テーマ更新有無の確認（blog-wpadmin-ops 参照系）
-5. Clarity Data Export API で直近分を取り溜め（週次レポートの原料）
+5. node script/fetch-clarity.mjs <domain>（Clarity直近分を日次保存。トークン未取得時はスキップ）
 6. 結果を report に追記して commit
 ```
 
@@ -29,8 +29,8 @@
 ## blog-weekly-report — `0 0 * * 0`
 
 ```
-1. blog-analytics-report（GA4 + GSC + Clarity 蓄積分を集計）
-2. リライト候補を keyword/backlog.yaml へ追記
+1. node script/generate-report.mjs <domain>（GA4 + GSC + Clarity 蓄積分を集計）
+2. レポートを確認し、追記する場合は同コマンドに --update-backlog を付ける
 3. commit/push
 ```
 
@@ -48,3 +48,17 @@
 
 - 各 Routine は手動でも発火できる。kill-switch の有無で公開系の挙動が変わることを確認済みであること
 - 止めたい時は `touch kill-switch`（再開は `rm kill-switch`）
+
+## 未登録環境での登録・検証手順
+
+Claude Code の Routines を利用できる環境で、このリポジトリを対象として上の4定義を登録します。
+登録先の秘密情報設定へ、既存の `OP_SERVICE_ACCOUNT_TOKEN` を渡します。値はプロンプトや実行ログに書きません。
+このリポジトリから Routines の登録や資格情報の発行は行いません。
+
+登録後は、まず読み取り用の `blog-daily-ops` を手動発火します。
+`kill-switch` があると冒頭で終了し、無いと死活確認・コメント取得まで到達することを、
+検証時だけコメント承認・プラグイン更新を無効にして確認します。
+本番の公開処理を手動発火で試す代わりに、README の fixture コマンドで
+品質ゲート・模擬draft削除を確認します（本番draftの検証は #6 の別作業です）。
+4本の一覧、`setup.sh` の成功、停止時と読み取り時の結果を記録してから運用開始とします。
+これらの記録が無い状態は「定義済み・未登録/未検証」であり、登録済みとは扱いません。
