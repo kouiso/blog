@@ -1,0 +1,11 @@
+{
+  "ga4": {
+    "previous": [{ "page": "/typescript-class/", "sessions": 100, "engagementRate": 0.7, "averageSessionDuration": 90 }],
+    "current": [{ "page": "/typescript-class/", "sessions": 80, "engagementRate": 0.3, "averageSessionDuration": 60 }]
+  },
+  "gsc": {
+    "previous": [{ "page": "https://programming-life.net/typescript-class/", "position": 8, "impressions": 1000, "clicks": 40, "ctr": 0.04 }],
+    "current": [{ "page": "https://programming-life.net/typescript-class/", "position": 11, "impressions": 800, "clicks": 20, "ctr": 0.025 }]
+  },
+  "clarity": [{ "data": [{ "metricName": "ScrollDepth", "information": [{ "URL": "https://programming-life.net/typescript-class/", "averageScrollDepth": "40" }] }] }]
+}
