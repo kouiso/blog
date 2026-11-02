@@ -21,7 +21,7 @@ Application Password の再発行は `doc/application-password.md`。
 
 ```
 site/<domain>/      サイトプロファイル（profile.md / voice.md / template/ / keyword/ / post-index.json / report/）
-.claude/skills/     運用 skill 群（CLAUDE.md のルーティング表を参照）
+.claude/skills/     運用 skill 群（AGENTS.md のルーティング表を参照）
 script/             skill が呼ぶスクリプト
 doc/                認証発行手順・運用設計・インシデント手順
 kill-switch         このファイルが存在する間、公開系 Routine / skill は一切動かない
