@@ -5,6 +5,9 @@
 *.secret
 service-account*.json
 
+# Generated site analytics can contain visitor data
+site/*/analytics/
+
 # Node / scripts
 node_modules/
 script/node_modules/

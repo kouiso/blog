@@ -1,6 +1,6 @@
 [
-  { "metricName": "Traffic", "information": [{ "URL": "https://programming-life.net/typescript-class/", "totalSessionCount": "20" }] },
-  { "metricName": "ScrollDepth", "information": [{ "URL": "https://programming-life.net/typescript-class/", "averageScrollDepth": "40" }] },
-  { "metricName": "DeadClickCount", "information": [{ "URL": "https://programming-life.net/typescript-class/", "sessionsWithMetricPercentage": "10" }] },
-  { "metricName": "RageClickCount", "information": [{ "URL": "https://programming-life.net/typescript-class/", "sessionsWithMetricPercentage": "2" }] }
+  { "metricName": "Traffic", "information": [{ "Url": "https://programming-life.net/typescript-class/", "totalSessionCount": "20" }] },
+  { "metricName": "ScrollDepth", "information": [{ "Url": "https://programming-life.net/typescript-class/", "averageScrollDepth": "40" }] },
+  { "metricName": "DeadClickCount", "information": [{ "Url": "https://programming-life.net/typescript-class/", "sessionsWithMetricPercentage": "10" }] },
+  { "metricName": "RageClickCount", "information": [{ "Url": "https://programming-life.net/typescript-class/", "sessionsWithMetricPercentage": "2" }] }
 ]

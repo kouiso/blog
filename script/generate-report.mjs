@@ -125,7 +125,7 @@ export function summarizeClarity(snapshots) {
     for (const metric of validateClarity(snapshot.data)) {
       for (const row of metric.information) {
         for (const [field, value] of Object.entries(row)) {
-          if (field === 'URL' || value === '' || !Number.isFinite(Number(value))) continue;
+          if (field === 'URL' || field === 'Url' || value === '' || !Number.isFinite(Number(value))) continue;
           const key = `${metric.metricName}/${field}`;
           const entry = totals.get(key) ?? { sum: 0, count: 0 };
           entry.sum += Number(value);
@@ -155,7 +155,7 @@ export function renderReport({ domain, end, data, clarity = [], fixture = false 
     ...(clarity.length ? [`Clarity ${clarity.length}日分。各メトリクスは観測行の単純平均（週次ユニーク数ではありません）。`,
       ...summarizeClarity(clarity).map((m) => `- ${cell(m.key)}：${number(m.average)}`),
       ...clarity.flatMap((snapshot) => snapshot.data.flatMap((metric) => metric.information
-        .filter((row) => row.URL).map((row) => `- ${cell(row.URL)} / ${cell(metric.metricName)}：${cell(JSON.stringify(row))}`)))] : ['Clarity 未取得']),
+        .filter((row) => row.Url || row.URL).map((row) => `- ${cell(row.Url || row.URL)} / ${cell(metric.metricName)}：${cell(JSON.stringify(row))}`)))] : ['Clarity 未取得']),
     '', '## リライト候補（順位下落・低 engagement）',
     ...pages.filter((p) => p.rewrite).map((p) => `- ${cell(p.path)}：順位下落または低 engagement`),
     '', '## 今週の決定と次の一手', pages.some((p) => p.rewrite) ? '候補の記事を確認し、見出しと冒頭の改善を検討する。' : 'データを継続取得し、次週の変化を確認する。', '');

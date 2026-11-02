@@ -129,6 +129,19 @@ test('page aliases aggregate rather than overwrite; GSC position is impression w
   assert.equal(page.sessionChange, 0);
 });
 
+test('Clarity report preserves live Url rows and legacy URL rows without averaging URL dimensions', () => {
+  const snapshots = [{ data: [{ metricName: 'ScrollDepth', information: [
+    { Url: `https://${domain}/live/`, averageScrollDepth: 40 },
+    { URL: `https://${domain}/legacy/`, averageScrollDepth: 60 },
+    { Url: null, averageScrollDepth: 20 },
+  ] }] }];
+  const report = renderReport({ domain, end: validDate('2026-01-04'), data, clarity: snapshots });
+  assert.match(report, /https:\/\/example\.test\/live\/ \/ ScrollDepth/);
+  assert.match(report, /https:\/\/example\.test\/legacy\/ \/ ScrollDepth/);
+  assert.equal(report.split('\n').filter((line) => line.includes(' / ScrollDepth')).length, 2);
+  assert.deepEqual(summarizeClarity(snapshots), [{ key: 'ScrollDepth/averageScrollDepth', average: 40 }]);
+});
+
 test('backlog adds known rewrite candidates once and preserves existing content', (t) => {
   const { site } = sandbox(t);
   const path = resolve(site, 'keyword/backlog.yaml');
