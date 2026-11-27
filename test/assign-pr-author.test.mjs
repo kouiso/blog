@@ -11,7 +11,7 @@ const ev = (user, assignees = []) => ({
 });
 const recorder = () => {
   const calls = [];
-  return { calls, call: async (...a) => { calls.push(a); } };
+  return { calls, call: async (...a) => { calls.push(a); return { assignees: a[2]?.assignees.map((login) => ({ login })) }; } };
 };
 
 test('作った人を担当者にする', async () => {
@@ -45,4 +45,14 @@ test('isBot は type と [bot] の両方で見分ける', () => {
   assert.equal(isBot({ login: 'x[bot]', type: 'User' }), true);
   assert.equal(isBot({ login: 'kouiso', type: 'User' }), false);
   assert.equal(isBot(null), false);
+});
+
+test('GitHub が担当者にしなかった時は not-assigned を返す', async () => {
+  const call = async () => ({ assignees: [] });
+  assert.match(await run(ev({ login: 'outsider', type: 'User' }), call), /^not-assigned: #7 → outsider/);
+});
+
+test('API が失敗したら例外を投げる（段は赤、後ろの段は続く）', async () => {
+  const call = async () => { throw new Error('POST → 500'); };
+  await assert.rejects(run(ev({ login: 'alice', type: 'User' }), call), /500/);
 });
