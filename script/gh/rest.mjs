@@ -37,3 +37,7 @@ export async function gh(method, path, body, opts = {}) {
   return res.status === 204 ? null : res.json();
 }
 
+/** ボットが作ったものかどうか */
+export function isBot(user) {
+  return !!user && (user.type === 'Bot' || /\[bot\]$/.test(user.login ?? ''));
+}
