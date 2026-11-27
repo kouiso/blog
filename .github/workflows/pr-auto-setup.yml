@@ -1,4 +1,5 @@
 # PR が開かれたときの自動設定（kouiso/blog#14 の項目5・6）
+# ラベルは開いた時・開き直した時に付ける。後から push で足したファイルの分は付けない。
 # pull_request_target で動くが、取り出すのは既定のブランチのコードだけで、PR のコードは実行しない。
 name: pr-auto-setup
 on:
@@ -22,5 +23,9 @@ jobs:
         # 失敗しても後ろの段（ラベル付け）は続ける
         continue-on-error: true
         run: node script/gh/assign-pr-author.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: ブランチ名と変更したファイルの場所でラベルを付ける
+        run: node script/gh/label-pr.mjs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
