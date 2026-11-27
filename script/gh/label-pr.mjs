@@ -6,20 +6,22 @@
 import { pathToFileURL } from 'node:url';
 import { gh, readEvent } from './rest.mjs';
 
-/** ブランチ名の頭 → ラベル（#14 の表のとおり） */
+/** ブランチ名の頭 → ラベル（#14 の表のとおり。大文字小文字は区別しない）
+ * claude/… や devin/… のように頭が表に無いブランチには付けない（ファイルの場所の規則だけが効く）。 */
 export const BRANCH_RULES = [
-  [/^(feature|feat)\//, 'feature'],
-  [/^(bugfix|fix)\//, 'bugfix'],
-  [/^hotfix\//, 'hotfix'],
-  [/^(chore|refactor)\//, 'chore'],
-  [/^docs\//, 'documentation'],
-  [/^release\//, 'release'],
+  [/^(feature|feat)\//i, 'feature'],
+  [/^(bugfix|fix)\//i, 'bugfix'],
+  [/^hotfix\//i, 'hotfix'],
+  [/^(chore|refactor)\//i, 'chore'],
+  [/^docs\//i, 'documentation'],
+  [/^release\//i, 'release'],
 ];
 
 /** 変更したファイルの場所 → ラベル（このリポの作りに合わせたもの） */
 export const PATH_RULES = [
   [/^(doc\/|README\.md$|AGENTS\.md$|CLAUDE\.md$)/, 'documentation'],
-  [/^(\.github\/|\.claude\/settings[^/]*\.json$|setup\.sh$|\.gitignore$)/, 'config'],
+  [/^(\.github\/|\.claude\/settings[^/]*\.json$|\.mcp\.json\.example$|setup\.sh$|\.gitignore$)/, 'config'],
+  [/^\.claude\/skills\//, 'skill'],
   [/^site\//, 'site'],
   [/^script\//, 'script'],
   [/^test\//, 'test'],
@@ -60,5 +62,10 @@ export async function run(event, call = gh) {
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1] ?? '').href) {
-  console.log(await run(await readEvent()));
+  try {
+    console.log(await run(await readEvent()));
+  } catch (e) {
+    console.log(`::warning::ラベルを付けられませんでした: ${e.message}`);
+    process.exit(1);
+  }
 }

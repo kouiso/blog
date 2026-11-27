@@ -16,6 +16,10 @@ test('ブランチ名の頭でラベルが決まる（#14 の表）', () => {
   for (const [branch, label] of Object.entries(cases)) assert.deepEqual(labelsFor(branch, []), [label], branch);
 });
 
+test('ブランチ名の大文字小文字は区別しない', () => {
+  assert.deepEqual(labelsFor('Feature/x', []), ['feature']);
+});
+
 test('頭が一致しないブランチ名には付けない', () => {
   assert.deepEqual(labelsFor('claude/fix-x', []), []);
   assert.deepEqual(labelsFor('features/x', []), []);
@@ -30,6 +34,8 @@ test('ファイルの場所でラベルが決まる', () => {
   assert.deepEqual(labelsFor('x', ['site/programming-life.net/profile.md']), ['site']);
   assert.deepEqual(labelsFor('x', ['script/quality-gate.mjs']), ['script']);
   assert.deepEqual(labelsFor('x', ['test/a.test.mjs']), ['test']);
+  assert.deepEqual(labelsFor('x', ['.claude/skills/blog-draft/SKILL.md']), ['skill']);
+  assert.deepEqual(labelsFor('x', ['.mcp.json.example']), ['config']);
 });
 
 test('site の中の .md は documentation にしない', () => {
@@ -73,4 +79,17 @@ test('足すものが無ければ POST しない', async () => {
   const call = async (m) => { if (m === 'POST') posted++; return []; };
   assert.equal(await run(event('claude/x'), call), 'skip: 足すラベルなし');
   assert.equal(posted, 0);
+});
+
+test('ファイルの取得は 30 ページ（3000 件）で止まる', async () => {
+  let n = 0;
+  const call = async () => { n++; return pages(100); };
+  const files = await changedFiles('o/r', 5, call);
+  assert.equal(n, 30);
+  assert.equal(files.length, 3000);
+});
+
+test('API が失敗したら例外を投げる（段は赤になる）', async () => {
+  const call = async () => { throw new Error('GET → 500'); };
+  await assert.rejects(run(event('feat/x'), call), /500/);
 });
