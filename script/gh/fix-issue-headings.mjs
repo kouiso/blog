@@ -8,7 +8,10 @@
 import { pathToFileURL } from 'node:url';
 import { gh, readEvent } from './rest.mjs';
 
-const OPEN_FENCE = /^ {0,3}(`{3,}(?!.*`)|~{3,})/;
+// 箇条書きの中のコードブロック（"- ```"）や深い字下げも、コードブロックとして扱う。
+// 見出しを直し損ねるのは害が小さく、コードの中を書き換えるのは害が大きいので、広めに取る。
+const OPEN_FENCE = /^[ \t]*(?:(?:[-*+]|\d{1,9}[.)])[ \t]+)*(`{3,}(?!.*`)|~{3,})/;
+const CLOSE_FENCE = /^[ \t]*(`{3,}|~{3,})[ \t]*\r?$/;
 const HEADING = /^( {0,3})(#{1,6})(?=[ \t\r]|$)/;
 
 /** 各行に「コードブロックの外か」を付けて返す */
@@ -16,7 +19,7 @@ function scan(lines) {
   let fence = null; // 開いているコードブロックの記号
   return lines.map((line) => {
     if (fence) {
-      const close = line.match(/^ {0,3}(`{3,}|~{3,})[ \t]*\r?$/);
+      const close = line.match(CLOSE_FENCE);
       if (close && close[1][0] === fence[0] && close[1].length >= fence.length) fence = null;
       return { line, outside: false };
     }

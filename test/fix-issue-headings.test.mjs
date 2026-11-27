@@ -35,6 +35,17 @@ test('info に ` を含む行はコードブロックの始まりではない', 
   assert.equal(fixHeadings('``` a`b\n### 見出し'), '``` a`b\n## 見出し');
 });
 
+test('~~~ のブロックの中の ~~~md は閉じとみなさない', () => {
+  assert.equal(fixHeadings('~~~\n~~~md\n### literal\n~~~\n### outside'), '~~~\n~~~md\n### literal\n~~~\n## outside');
+});
+
+test('箇条書きの中のコードブロックも触らない', () => {
+  assert.equal(
+    fixHeadings('### 手順\n- ~~~\n  ### literal\n  ~~~\n\n### outside\n1. ```sh\n   #### x\n   ```'),
+    '## 手順\n- ~~~\n  ### literal\n  ~~~\n\n## outside\n1. ```sh\n   #### x\n   ```',
+  );
+});
+
 test('閉じていないコードブロックの後ろは触らない', () => {
   const s = '### 外\n```\n### 中';
   assert.equal(fixHeadings(s), '## 外\n```\n### 中');
